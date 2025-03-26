@@ -231,5 +231,3 @@ export class FlipcardViewer extends LitElement {
     `;
   }
 }
-
-customElements.define("flipcard-viewer", FlipcardViewer); 

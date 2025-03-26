@@ -1,0 +1,44 @@
+# Development and source files
+src/
+test/
+coverage/
+docs/
+assets/
+config/
+index.html
+node_modules/
+
+# Version control
+.git/
+.gitignore
+
+# Configuration files
+web-dev-server.config.js
+web-test-runner.config.js
+rollup.config.js
+*.config.js
+
+# Build artifacts
+*.map
+coverage/
+
+# Editor and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and debugging
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Lock files (uncomment if you want to ignore them)
+# yarn.lock
+# package-lock.json
+
+# Temporary files
+*.tmp
+*.temp
+.cache/ 

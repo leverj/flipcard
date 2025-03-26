@@ -3,6 +3,9 @@ import { DEFAULT_ORIENTATION, IMAGE_LOAD_TIMEOUT_MS } from '../../../src/utils/c
 import { expect } from '@open-wc/testing';
 import sinon from 'sinon';
 
+// Small 1x1 pixel JPEG as data URL for testing
+const TEST_IMAGE_DATA_URL = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAABAAEDASIAAhEBAxEB/8QAH8AAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigD//2Q==';
+
 describe('Image Processor', () => {
   let clock;
 
@@ -17,19 +20,14 @@ describe('Image Processor', () => {
 
   describe('getImageOrientation', () => {
     it('should handle EXIF data extraction', async () => {
-      // Test that the getImageOrientation function
-      // handles the expected success case where EXIF data is present
       const consoleWarnStub = sinon.stub(console, 'warn');
       const blob = new Blob(['test'], { type: 'image/jpeg' });
       
       const orientation = await getImageOrientation(blob);
       
-      // Since we can't control the return value of parseExifData,
-      // we just need to check that the function returns a number
+      // Test should pass whether we get EXIF data or not
       expect(typeof orientation).to.equal('number');
       
-      // If parseExifData fails in the testing environment (likely),
-      // it should log a warning and return DEFAULT_ORIENTATION
       if (orientation === DEFAULT_ORIENTATION) {
         expect(consoleWarnStub.called).to.be.true;
       }
@@ -38,7 +36,6 @@ describe('Image Processor', () => {
     });
     
     it('should handle errors in EXIF data extraction', async () => {
-      // Test that errors from parseExifData are handled properly
       const consoleWarnStub = sinon.stub(console, 'warn');
       const invalidBlob = new Blob(['invalid data'], { type: 'application/octet-stream' });
 
@@ -53,10 +50,9 @@ describe('Image Processor', () => {
 
   describe('correctImageOrientation', () => {
     it('should handle image load timeout', async () => {
-      const imageUrl = 'test-image.jpg';
       const consoleErrorStub = sinon.stub(console, 'error');
 
-      const promise = correctImageOrientation(imageUrl, 1);
+      const promise = correctImageOrientation(TEST_IMAGE_DATA_URL, 1);
       clock.tick(IMAGE_LOAD_TIMEOUT_MS + 10);
 
       try {
@@ -70,7 +66,6 @@ describe('Image Processor', () => {
     });
 
     it('should handle image load errors', async () => {
-      const imageUrl = 'test-image.jpg';
       const consoleErrorStub = sinon.stub(console, 'error');
 
       // Mock Image to simulate error
@@ -83,7 +78,7 @@ describe('Image Processor', () => {
         }
       };
 
-      const promise = correctImageOrientation(imageUrl, 1);
+      const promise = correctImageOrientation(TEST_IMAGE_DATA_URL, 1);
       clock.tick(20);
 
       try {
@@ -92,7 +87,6 @@ describe('Image Processor', () => {
       } catch (error) {
         expect(consoleErrorStub.calledWith('Loading image: Image load error')).to.be.true;
       } finally {
-        // Restore original Image
         window.Image = originalImage;
         consoleErrorStub.restore();
       }
@@ -109,7 +103,7 @@ describe('Image Processor', () => {
     });
 
     it('should attempt to process the image', async () => {
-      const mediaUrl = 'https://example.com/test.jpg';
+      const mediaUrl = TEST_IMAGE_DATA_URL;
       
       // Mock fetch to return a simple blob
       const originalFetch = window.fetch;
@@ -125,8 +119,6 @@ describe('Image Processor', () => {
       URL.revokeObjectURL = sinon.stub();
       
       try {
-        // We don't wait for the full result since it involves complex async operations
-        // Just ensure the fetch was called with the correct URL
         processImage(mediaUrl);
         expect(fetchStub.calledWith(mediaUrl, sinon.match.object)).to.be.true;
       } finally {

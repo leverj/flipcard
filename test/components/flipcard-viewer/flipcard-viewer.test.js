@@ -3,6 +3,9 @@ import { DEFAULT_ASPECT_RATIO, DEFAULT_FRAME_SIZE, RESIZE_DEBOUNCE_MS } from '..
 import { expect, fixture, html } from '@open-wc/testing';
 import sinon from 'sinon';
 
+// Register the custom element before testing
+customElements.define('flipcard-viewer', FlipcardViewer);
+
 describe('FlipcardViewer', () => {
   let element;
 
