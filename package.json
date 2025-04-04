@@ -1,5 +1,5 @@
 {
-  "name": "flipcard",
+  "name": "@dek-art/flipcard",
   "version": "1.0.0",
   "description": "A Lit-based web component for displaying interactive flipcard images with grid support.",
   "main": "dist/flipcard-viewer.js",
@@ -8,7 +8,8 @@
   "exports": {
     ".": {
       "import": "./dist/flipcard-viewer.js",
-      "require": "./dist/flipcard-viewer.js"
+      "require": "./dist/flipcard-viewer.js",
+      "types": "./dist/flipcard-viewer.d.ts"
     }
   },
   "files": [
@@ -24,13 +25,13 @@
     "custom-elements"
   ],
   "scripts": {
-    "start": "web-dev-server",
+    "dev": "web-dev-server",
     "test": "web-test-runner",
     "test:coverage": "web-test-runner --coverage",
     "clean": "rimraf dist",
-    "build": "npm run clean && rollup -c",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test"
+    "build": "yarn clean && rollup -c",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn test"
   },
   "dependencies": {
     "exifr": "^7.1.3"

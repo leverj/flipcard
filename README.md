@@ -14,47 +14,43 @@ A web component built with Lit for displaying interactive flipcard images with g
 ## Installation
 
 ```bash
-npm install flipcard
+npm install @dek-art/flipcard
 # or
-yarn add flipcard
+yarn add @dek-art/flipcard
 ```
 
 ## Import Options
 
-You can import the component in several ways:
+The component can be imported in several ways depending on your use case:
 
+### Option 1: Custom Element Usage (Recommended for most cases)
 ```javascript
-// Option 1: Default import (recommended)
-import FlipCard from 'flipcard';
+// This will register the custom element automatically
+import '@dek-art/flipcard';
 
-// Option 2: Named import
-import { FlipcardViewer } from 'flipcard';
-
-// Option 3: Side-effects only import (the component will be auto-registered)
-import 'flipcard';
+// Use in HTML or templates
+// <flipcard-viewer metadata-json="..." gateway-url="..."></flipcard-viewer>
 ```
 
-## Builds
-
-The package includes two builds:
-
-### Development Build
+### Option 2: Class Import (For advanced use cases)
 ```javascript
-import FlipCard from 'flipcard/dist/flipcard-viewer.js';
-```
-- Unminified for better readability
-- Includes source maps for easier debugging
-- Preserves comments and console statements
-- Best for local development and debugging
+// Import the class directly
+import { FlipcardViewer } from '@dek-art/flipcard';
 
-### Production Build
-```javascript
-import FlipCard from 'flipcard/dist/flipcard-viewer.min.js';
+// The class can be used for:
+// - Extending the component
+// - Type checking
+// - Programmatic element creation
+const element = new FlipcardViewer();
 ```
-- Minified and optimized for production
-- No source maps to reduce file size
-- Removes console statements and comments
-- Best for production deployments
+
+### Option 3: Default Import
+```javascript
+// Alternative way to import the class
+import FlipCard from '@dek-art/flipcard';
+```
+
+Note: When using the component in frameworks like Vue, React, or Angular, you should use Option 1 (custom element usage) and ensure the component is properly registered in your framework's component system.
 
 ## Usage
 
@@ -82,8 +78,7 @@ The component will be automatically registered as a custom element `<flipcard-vi
 <html>
 <head>
   <script type="module">
-    // Import the component (any of the import options above will work)
-    import 'flipcard';
+    import '@dek-art/flipcard';
   </script>
 </head>
 <body>
@@ -135,16 +130,16 @@ The component will be automatically registered as a custom element `<flipcard-vi
 
 ```bash
 # Install dependencies
-npm install
+yarn install
 
 # Start development server
-npm start
+yarn start
 
 # Run tests
-npm test
+yarn test
 
 # Build for production
-npm run build
+yarn build
 ```
 
 ## License
