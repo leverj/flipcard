@@ -10,7 +10,8 @@
       "import": "./dist/flipcard-viewer.js",
       "require": "./dist/flipcard-viewer.js",
       "types": "./dist/flipcard-viewer.d.ts"
-    }
+    },
+    "./dist/*": "./dist/*"
   },
   "files": [
     "dist/",

@@ -54,8 +54,8 @@
 
 	const flipcardViewers = document.querySelectorAll('flipcard-viewer');
 	flipcardViewers.forEach((flipcardViewer, index) => {
-		flipcardViewer.setAttribute('metadata-json', metadataJson);
-		flipcardViewer.setAttribute('gateway-url', 'https://ipfs.metaversis.io/ipfs/');
+		if(!flipcardViewer.hasAttribute('metadata-json')) flipcardViewer.setAttribute('metadata-json', metadataJson);
+		if(!flipcardViewer.hasAttribute('gateway-url')) flipcardViewer.setAttribute('gateway-url', 'https://ipfs.metaversis.io/ipfs/');
 	});
 </script>
 </html>

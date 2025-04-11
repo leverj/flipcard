@@ -16,6 +16,14 @@ export class FlipcardViewer extends LitElement {
   static properties = {
     metadataJson: { type: String, attribute: "metadata-json" },
     gatewayUrl: { type: String, attribute: "gateway-url" },
+    isThumbnail: { 
+      type: Boolean, 
+      attribute: "is-thumbnail", 
+      converter: {
+        fromAttribute: (value) => value !== null && value !== "false",
+        toAttribute: (value) => value ? "" : null,
+      }
+    },
     imgSrc: { type: String, state: true },
     mediaUrl: { type: String, state: true },
     rows: { type: Number, state: true },
@@ -40,6 +48,7 @@ export class FlipcardViewer extends LitElement {
     super();
     this.metadataJson = "";
     this.gatewayUrl = "https://www.ipfs.io/ipfs/";
+    this.isThumbnail = true;
     this.imgSrc = "";
     this.mediaUrl = "";
     this.rows = 1;
@@ -135,6 +144,7 @@ export class FlipcardViewer extends LitElement {
   }
 
   displayFlipcard() {
+    if(this.isThumbnail) return;
     // Ensure rows and columns are valid
     if (!this.rows || !this.columns || this.rows < 1 || this.columns < 1) {
       handleError(new Error('Invalid rows or columns'), 'Displaying flipcard', true);
