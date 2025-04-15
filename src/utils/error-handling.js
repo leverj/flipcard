@@ -1,11 +1,18 @@
+import { logger } from './logger.js';
+
 /**
  * Standard error handling method that logs errors with context
  * @param {Error} error - The error object
  * @param {string} context - The context where the error occurred
- * @param {boolean} isWarning - Whether to log as warning instead of error
+ * @param {boolean} isFatal - Whether to log as fatal error instead of warning
  */
-export function handleError(error, context, isWarning = false) {
-  const message = error?.message || String(error);
-  const logFn = isWarning ? console.warn : console.error;
-  logFn(`${context}: ${message}`);
-} 
+export const handleError = (error, context, isFatal = false) => {
+  const errorMessage = `Error in ${context}: ${error.message}`;
+  
+  if (isFatal) {
+    logger.error(errorMessage);
+    throw error;
+  } else {
+    logger.warn(errorMessage);
+  }
+}; 
