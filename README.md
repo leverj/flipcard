@@ -10,6 +10,7 @@ A web component built with Lit for displaying interactive flipcard images with g
 - Responsive sizing based on container dimensions
 - IPFS gateway support
 - Built with Lit for optimal performance
+- Configurable logging system for debugging
 
 ## Installation
 
@@ -119,13 +120,6 @@ The component will be automatically registered as a custom element `<flipcard-vi
 }
 ```
 
-## Browser Support
-
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Safari iOS (13.4+)
-
 ## Development
 
 ```bash
@@ -141,6 +135,42 @@ yarn test
 # Build for production
 yarn build
 ```
+
+## Debugging and Logging
+
+The component includes a configurable logging system that can be used to debug issues and monitor component behavior. You can configure logging in your application:
+
+```javascript
+import { logger, LOG_LEVELS } from '@dek-art/flipcard';
+
+// Set log level (DEBUG, INFO, WARN, ERROR)
+logger.setLogLevel('DEBUG');
+
+// Enable/disable logging
+logger.enableLogging();
+logger.disableLogging();
+```
+
+Available log levels:
+- `DEBUG`: Detailed debugging information
+- `INFO`: General information about component operation
+- `WARN`: Warning messages for potential issues
+- `ERROR`: Error messages for critical issues
+
+Example log output:
+```
+[Flipcard] Initializing FlipcardViewer
+[Flipcard] Metadata parsed successfully { mediaUrl: "...", rows: 2, columns: 2 }
+[Flipcard] Frame size calculated { frameWidth: 10, frameHeight: 10 }
+[Flipcard] FlipcardViewer initialized successfully
+```
+
+## Browser Support
+
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Safari iOS (13.4+)
 
 ## License
 
