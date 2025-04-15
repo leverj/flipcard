@@ -11,6 +11,7 @@ A web component built with Lit for displaying interactive flipcard images with g
 - IPFS gateway support
 - Built with Lit for optimal performance
 - Configurable logging system for debugging
+- Thumbnail mode support
 
 ## Installation
 
@@ -69,6 +70,7 @@ The component will be automatically registered as a custom element `<flipcard-vi
     }
   }'
   gateway-url="https://www.ipfs.io/ipfs/"
+  is-thumbnail="true"
 ></flipcard-viewer>
 ```
 
@@ -94,6 +96,7 @@ The component will be automatically registered as a custom element `<flipcard-vi
       }
     }'
     gateway-url="https://www.ipfs.io/ipfs/"
+    is-thumbnail="true"
   ></flipcard-viewer>
 </body>
 </html>
@@ -105,6 +108,7 @@ The component will be automatically registered as a custom element `<flipcard-vi
 |----------|------|-------------|---------|
 | `metadata-json` | String | JSON string containing image metadata and display properties | `""` |
 | `gateway-url` | String | Base URL for the IPFS gateway | `"https://www.ipfs.io/ipfs/"` |
+| `is-thumbnail` | Boolean | Whether to display in thumbnail mode (disables flip animation) | `true` |
 
 ### Metadata JSON Format
 
@@ -127,7 +131,7 @@ The component will be automatically registered as a custom element `<flipcard-vi
 yarn install
 
 # Start development server
-yarn start
+yarn dev
 
 # Run tests
 yarn test
