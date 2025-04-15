@@ -3,6 +3,7 @@ import { styles } from './flipcard-styles.js';
 import { processImage } from './image-processor.js';
 import { calculateFrameSize, computeAspectRatio } from './frame-calculator.js';
 import { handleError } from '../../utils/error-handling.js';
+import { logger } from '../../utils/logger.js';
 import { DEFAULT_ASPECT_RATIO, DEFAULT_FRAME_SIZE, RESIZE_DEBOUNCE_MS } from '../../utils/constants.js';
 
 /**
@@ -16,9 +17,9 @@ export class FlipcardViewer extends LitElement {
   static properties = {
     metadataJson: { type: String, attribute: "metadata-json" },
     gatewayUrl: { type: String, attribute: "gateway-url" },
-    isThumbnail: { 
-      type: Boolean, 
-      attribute: "is-thumbnail", 
+    isThumbnail: {
+      type: Boolean,
+      attribute: "is-thumbnail",
       converter: {
         fromAttribute: (value) => value !== null && value !== "false",
         toAttribute: (value) => value ? "" : null,
@@ -71,12 +72,31 @@ export class FlipcardViewer extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
+    await this.initialize();
+  }
+
+  async updated(changedProperties) {
+    super.updated(changedProperties);
+    if (changedProperties.has('metadataJson') || changedProperties.has('gatewayUrl')) {
+      logger.debug('Reinitializing component due to attribute changes');
+      await this.initialize();
+    }
+  }
+
+  async initialize() {
     try {
+      logger.debug('Initializing FlipcardViewer');
       if (!this.metadataJson) {
         handleError(new Error('No metadata provided to FlipCard viewer'), 'Component initialization', true);
         return;
       }
+      
       this.parseMetadata();
+      logger.debug('Metadata parsed successfully', {
+        mediaUrl: this.mediaUrl,
+        rows: this.rows,
+        columns: this.columns
+      });
 
       if (!this.mediaUrl) {
         handleError(new Error('No image URL found in metadata'), 'Component initialization', true);
@@ -88,15 +108,24 @@ export class FlipcardViewer extends LitElement {
       const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
       if (iOS || isSafari) {
+        logger.debug('Processing image for iOS/Safari');
         const processedImageUrl = await processImage(this.mediaUrl);
         if (processedImageUrl) {
           this.mediaUrl = processedImageUrl;
+          logger.debug('Image processed successfully');
         }
       }
 
       this.imgSrc = this.mediaUrl;
+      this.isImagePrepared = false;
       calculateFrameSize(this);
+      logger.debug('Frame size calculated', {
+        frameWidth: this.frameWidth,
+        frameHeight: this.frameHeight
+      });
+      
       window.addEventListener("resize", this.handleResize);
+      logger.info('FlipcardViewer initialized successfully');
     } catch (error) {
       handleError(error, 'Component initialization');
     }
@@ -110,6 +139,8 @@ export class FlipcardViewer extends LitElement {
 
   parseMetadata() {
     try {
+      logger.debug('Parsing metadata', { metadataJson: this.metadataJson });
+      
       if (!this.metadataJson || this.metadataJson === "") {
         handleError(new Error("No metadata provided"), "Parsing metadata", true);
         return;
@@ -138,13 +169,19 @@ export class FlipcardViewer extends LitElement {
       this.columns = parseInt(display?.columns ?? 1);
       if (isNaN(this.rows) || this.rows <= 0) this.rows = 1;
       if (isNaN(this.columns) || this.columns <= 0) this.columns = 1;
+      
+      logger.debug('Metadata parsed successfully', {
+        mediaUrl: this.mediaUrl,
+        rows: this.rows,
+        columns: this.columns
+      });
     } catch (error) {
       handleError(error, "Parsing metadata");
     }
   }
 
   displayFlipcard() {
-    if(this.isThumbnail) return;
+    if (this.isThumbnail) return;
     // Ensure rows and columns are valid
     if (!this.rows || !this.columns || this.rows < 1 || this.columns < 1) {
       handleError(new Error('Invalid rows or columns'), 'Displaying flipcard', true);
