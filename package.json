@@ -7,9 +7,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/flipcard-viewer.js",
-      "require": "./dist/flipcard-viewer.js",
-      "types": "./dist/flipcard-viewer.d.ts"
+      "import": "./dist/flipcard-viewer.min.js",
+      "require": "./dist/flipcard-viewer.min.js"
     },
     "./dist/*": "./dist/*"
   },
