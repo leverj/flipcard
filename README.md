@@ -16,9 +16,9 @@ A web component built with Lit for displaying interactive flipcard images with g
 ## Installation
 
 ```bash
-npm install @dek-art/flipcard
+npm install @leverj/flipcard
 # or
-yarn add @dek-art/flipcard
+yarn add @leverj/flipcard
 ```
 
 ## Import Options
@@ -28,7 +28,7 @@ The component can be imported in several ways depending on your use case:
 ### Option 1: Custom Element Usage (Recommended for most cases)
 ```javascript
 // This will register the custom element automatically
-import '@dek-art/flipcard';
+import '@leverj/flipcard';
 
 // Use in HTML or templates
 // <flipcard-viewer metadata-json="..." gateway-url="..."></flipcard-viewer>
@@ -37,7 +37,7 @@ import '@dek-art/flipcard';
 ### Option 2: Class Import (For advanced use cases)
 ```javascript
 // Import the class directly
-import { FlipcardViewer } from '@dek-art/flipcard';
+import { FlipcardViewer } from '@leverj/flipcard';
 
 // The class can be used for:
 // - Extending the component
@@ -49,7 +49,7 @@ const element = new FlipcardViewer();
 ### Option 3: Default Import
 ```javascript
 // Alternative way to import the class
-import FlipCard from '@dek-art/flipcard';
+import FlipCard from '@leverj/flipcard';
 ```
 
 Note: When using the component in frameworks like Vue, React, or Angular, you should use Option 1 (custom element usage) and ensure the component is properly registered in your framework's component system.
@@ -81,7 +81,7 @@ The component will be automatically registered as a custom element `<flipcard-vi
 <html>
 <head>
   <script type="module">
-    import '@dek-art/flipcard';
+    import '@leverj/flipcard';
   </script>
 </head>
 <body>
@@ -145,7 +145,7 @@ yarn build
 The component includes a configurable logging system that can be used to debug issues and monitor component behavior. You can configure logging in your application:
 
 ```javascript
-import { logger, LOG_LEVELS } from '@dek-art/flipcard';
+import { logger, LOG_LEVELS } from '@leverj/flipcard';
 
 // Set log level (DEBUG, INFO, WARN, ERROR)
 logger.setLogLevel('DEBUG');

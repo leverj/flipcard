@@ -1,5 +1,5 @@
 {
-  "name": "@dek-art/flipcard",
+  "name": "@leverj/flipcard",
   "version": "1.0.0",
   "description": "A Lit-based web component for displaying interactive flipcard images with grid support.",
   "main": "dist/flipcard-viewer.js",
