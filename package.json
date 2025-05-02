@@ -1,6 +1,6 @@
 {
   "name": "@leverj/flipcard",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A Lit-based web component for displaying interactive flipcard images with grid support.",
   "main": "dist/flipcard-viewer.js",
   "module": "dist/flipcard-viewer.js",
@@ -32,7 +32,10 @@
     "clean": "rimraf dist",
     "build": "yarn clean && rollup -c",
     "prepare": "yarn build",
-    "prepublishOnly": "yarn test"
+    "publish:patch": "up=--patch yarn publish:up",
+    "publish:minor": "up=--minor yarn publish:up",
+    "publish:major": "up=--major yarn publish:up",
+    "publish:up": "yarn build  && yarn version $up --message 'Bump version to v%s' && yarn publish --non-interactive && git push && git push --tags"
   },
   "dependencies": {
     "exifr": "^7.1.3"
@@ -42,10 +45,10 @@
   },
   "devDependencies": {
     "@open-wc/testing": "^4.0.0",
-    "@web/dev-server": "^0.4.6",
-    "@web/test-runner": "^0.20.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.20.0",
     "lit": "^3.2.1",
     "rimraf": "^6.0.1",
     "rollup": "^4.37.0",
@@ -53,15 +56,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/metaversis/flipcard-viewer.git"
+    "url": "https://github.com/leverj/flipcard.git"
   },
   "bugs": {
-    "url": "https://github.com/metaversis/flipcard-viewer/issues"
+    "url": "https://github.com/leverj/flipcard/issues"
   },
-  "homepage": "https://github.com/metaversis/flipcard-viewer#readme",
-  "author": "Adikeshav S",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  }
+  "homepage": "https://github.com/leverj/flipcard#readme",
+  "author": "Leverj",
+  "license": "MIT"
 }
