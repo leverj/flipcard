@@ -121,6 +121,7 @@ describe('FlipcardViewer Error Cases', () => {
     it('should handle zero dimensions gracefully', async () => {
       element.rows = 0;
       element.columns = 0;
+      element.isThumbnail = false;
       element.displayFlipcard();
       
       // Wait for any warning messages
@@ -141,6 +142,7 @@ describe('FlipcardViewer Error Cases', () => {
     it('should handle negative dimensions gracefully', async () => {
       element.rows = -1;
       element.columns = -1;
+      element.isThumbnail = false;
       element.displayFlipcard();
       
       // Wait for any warning messages

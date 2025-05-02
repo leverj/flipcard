@@ -88,6 +88,7 @@ describe('FlipcardViewer', () => {
     it('should display flipcard correctly', () => {
       element.rows = 2;
       element.columns = 2;
+      element.isThumbnail = false;
       const shiftImageSpy = sinon.spy(element, 'shiftImage');
 
       element.displayFlipcard();
@@ -101,6 +102,7 @@ describe('FlipcardViewer', () => {
       const consoleWarnStub = sinon.stub(console, 'warn');
       element.rows = 0;
       element.columns = 0;
+      element.isThumbnail = false;
 
       element.displayFlipcard();
 
