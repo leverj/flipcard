@@ -81,7 +81,21 @@ export class FlipcardViewer extends LitElement {
       logger.debug('Reinitializing component due to attribute changes');
       await this.initialize();
     }
+
+    const card = this.renderRoot.querySelector('.iaw-card');
+    if (card) {
+      card.style.setProperty('--rotate-by', this.rotateBy);
+      card.style.setProperty('--container-width', this.containerWidth);
+      card.style.setProperty('--container-height', this.containerHeight);
+      card.style.setProperty('--img-height', this.imgHeight);
+      card.style.setProperty('--img-width', this.imgWidth);
+      card.style.setProperty('--front-img-top', this.frontImgTop);
+      card.style.setProperty('--front-img-left', this.frontImgLeft);
+      card.style.setProperty('--back-img-top', this.backImgTop);
+      card.style.setProperty('--back-img-left', this.backImgLeft);
+    }
   }
+
 
   async initialize() {
     try {
@@ -254,17 +268,7 @@ export class FlipcardViewer extends LitElement {
   render() {
     return html`
       <div class="flipcard-viewer">
-        <div class="iaw-card" @click="${this.displayFlipcard}" style="
-            --rotate-by: ${this.rotateBy}; 
-            --container-width: ${this.containerWidth}; 
-            --container-height: ${this.containerHeight};
-            --img-height: ${this.imgHeight}; 
-            --img-width: ${this.imgWidth}; 
-            --front-img-top: ${this.frontImgTop}; 
-            --front-img-left: ${this.frontImgLeft}; 
-            --back-img-top: ${this.backImgTop}; 
-            --back-img-left: ${this.backImgLeft}; 
-          ">
+        <div class="iaw-card" @click="${this.displayFlipcard}">
           <div class="iaw-card-inner">
             <div class="iaw-card-front">
               <img class="iaw-front" src="${this.imgSrc}" alt="image not found" @load="${this.prepare}"/>
