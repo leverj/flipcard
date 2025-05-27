@@ -33,6 +33,11 @@ export function roundToDecimals(num) {
  * @param {Object} element - The component element
  */
 export function calculateScreenSize(element) {
+  if(element.size) {
+    element.frameWidth = element.size;
+    element.frameHeight = element.size;
+    return;
+  }
   try {
     const docFontSize = getDocumentFontSize();
 
