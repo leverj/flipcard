@@ -25,6 +25,7 @@ export class FlipcardViewer extends LitElement {
         toAttribute: (value) => value ? "" : null,
       }
     },
+    size: { type: String, attribute: "size" },
     imgSrc: { type: String, state: true },
     mediaUrl: { type: String, state: true },
     rows: { type: Number, state: true },
