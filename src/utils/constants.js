@@ -16,10 +16,10 @@ export const ORIENTATION_TRANSFORMS = {
   // Flipped horizontally and rotated 270 degrees
   5: (ctx, width, height) => { ctx.transform(0, 1, 1, 0, 0, 0); },
   // Rotated 90 degrees
-  6: (ctx, width, height) => { ctx.transform(0, 1, -1, 0, height, 0); },
+  6: (ctx, width, height) => { ctx.transform(0, -1, 1, 0, 0, width); },
   // Flipped horizontally and rotated 90 degrees
   7: (ctx, width, height) => { ctx.transform(0, -1, -1, 0, height, width); },
   // Rotated 270 degrees
-  8: (ctx, width, height) => { ctx.transform(0, -1, 1, 0, 0, width); }
+  8: (ctx, width, height) => { ctx.transform(0, -1, 1, 0, height, 0); }
 };
 
