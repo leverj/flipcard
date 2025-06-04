@@ -1,6 +1,6 @@
 {
   "name": "@leverj/flipcard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Lit-based web component for displaying interactive flipcard images with grid support.",
   "main": "dist/flipcard-viewer.js",
   "module": "dist/flipcard-viewer.js",
